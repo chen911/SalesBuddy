@@ -11,10 +11,14 @@ import { OrderProvider } from '../../providers/order/order';
 })
 export class OrderCreatePage {
 
-  constructor(public navCtrl: NavController, public orderProvider: OrderProvider) {}
+  public orderDate: String    = new Date().toISOString();
+  public requestDate: String  = new Date().toISOString();
 
-  createOrder(orderDate: string, requestDate: string, orderName: string, orderPrice: number, orderCost: number) {
-    this.orderProvider.createOrder(orderDate, requestDate, orderName, orderPrice, orderCost)
+  constructor(public navCtrl: NavController, public orderProvider: OrderProvider) {  
+  }
+
+  createOrder(orderDate: string, requestDate: string, notes: string) {
+    this.orderProvider.createOrder(orderDate, requestDate, notes)
     .then( newOrder => {
       this.navCtrl.pop();
     });

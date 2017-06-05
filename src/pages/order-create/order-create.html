@@ -6,30 +6,22 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>Order Name</ion-label>
-    <ion-input [(ngModel)]="orderName" type="text" placeholder="What's your order's name?">
-    </ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Price</ion-label>
-    <ion-input [(ngModel)]="orderPrice" type="number" placeholder="How much will guests pay?">
-    </ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Cost</ion-label>
-    <ion-input [(ngModel)]="orderCost" type="number" placeholder="How much are you spending?">
-    </ion-input>
-  </ion-item>
-
-  <ion-item>
     <ion-label>Order Date</ion-label>
-    <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY" [(ngModel)]="orderDate">
+    <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="orderDate" required>
     </ion-datetime>
   </ion-item>
+  <ion-item>
+    <ion-label>Request Date</ion-label>
+    <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="requestDate" required>
+    </ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Notes</ion-label>
+    <ion-input [(ngModel)]="notes" type="text" placeholder="What's your order details?" required>
+    </ion-input>
+  </ion-item>
 
-  <button ion-button block (click)="createOrder(orderName, orderDate, orderPrice, orderCost)">
+  <button ion-button block (click)="createOrder(orderDate, requestDate, notes)">
     Create Order
   </button>
 </ion-content>

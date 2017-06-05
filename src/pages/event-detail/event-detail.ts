@@ -13,7 +13,7 @@ import { Camera } from '@ionic-native/camera';
 })
 export class EventDetailPage {
   public currentEvent: any = {};
-  public guestName:string = '';
+  public guestName:string = 'XCXCXC';
   public guestPicture:string = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 

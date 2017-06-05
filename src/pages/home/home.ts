@@ -17,4 +17,6 @@ export class HomePage {
 
   goToList(){ this.navCtrl.push('event-list'); }
 
+  goToOrderList(){ this.navCtrl.push('order-list'); }
+
 }

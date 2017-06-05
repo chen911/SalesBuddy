@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-row padding>
+    <ion-col col-8>
+      Current Order Revenue
+    </ion-col>
+    <ion-col col-4>
+      {{currentOrder?.orderDate}}
+    </ion-col>
+  </ion-row>
+  <ion-card>
+    <ion-card-header>
+      {{currentOrder?.customer}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>Order Date: <strong>{{currentOrder?.orderDate}}</strong></p>
+      <p>Request Date: <strong>{{currentOrder?.requestDate}}</strong></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="add-guest-form">
+    <ion-card-header>
+      Items
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let orderItem of orderItemList">
+          <span><strong>{{orderItem?.item}}</strong></span>
+          <span> {{orderItem?.qty}} </span>
+        </ion-item>
+      </ion-list>
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label stacked>Item</ion-label>
+          <ion-input [(ngModel)]="item" type="text" placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Qty</ion-label>
+          <ion-input [(ngModel)]="qty" type="number" placeholder=""></ion-input>
+        </ion-item>
+
+        <button ion-button color="primary" block (click)="addItem(item, qty)">
+          Add Item
+        </button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -12,6 +12,10 @@ export class OrderProvider {
     return this.userProfileRef.child('/orderList');
   }
 
+  getOrderItemList(orderId): firebase.database.Reference {
+    return this.userProfileRef.child('/orderList').child(orderId).child('/itemList');
+  }
+
   getOrderDetail(orderId:string): firebase.database.Reference {
     return this.userProfileRef.child('/orderList').child(orderId);
   }
@@ -22,6 +26,20 @@ export class OrderProvider {
       requestDate: requestDate,
       notes: notes,
       createdDate: new Date().toISOString()
+    });
+  }
+
+  addItem(item, qty, orderId): firebase.Promise<any> {
+    return this.userProfileRef.child('/orderList').child(orderId).child('itemList')
+    .push({
+      item: item,
+      qty: qty
+    })
+    .then((newGuest) => {
+      this.userProfileRef.child('/orderList').child(orderId).transaction( order => {
+        // order.revenue += orderPrice;
+        return order;
+      });
     });
   }
 

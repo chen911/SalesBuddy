@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { EventProvider } from '../providers/event/event';
 import { OrderProvider } from '../providers/order/order';
+import { CustomerProvider } from '../providers/customer/customer';
 import { ProfileProvider } from '../providers/profile/profile';
 
 class CameraMock extends Camera {
@@ -45,7 +46,8 @@ class CameraMock extends Camera {
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     AuthProvider, 
     EventProvider, 
-    OrderProvider, 
+    OrderProvider,
+    CustomerProvider,
     ProfileProvider
   ]
 })

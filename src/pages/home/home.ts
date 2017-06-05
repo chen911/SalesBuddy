@@ -19,4 +19,5 @@ export class HomePage {
 
   goToOrderList(){ this.navCtrl.push('order-list'); }
 
+  goToCustomerList(){ this.navCtrl.push('customer-list'); }
 }

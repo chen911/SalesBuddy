@@ -11,7 +11,6 @@ export class ProfileProvider {
 
     this.userProfile = firebase.database().ref('/userProfile')
       .child(firebase.auth().currentUser.uid);
-
   }
 
   getUserProfile(): firebase.database.Reference {

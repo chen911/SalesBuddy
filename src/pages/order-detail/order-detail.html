@@ -18,8 +18,8 @@
       {{currentOrder?.customer}}
     </ion-card-header>
     <ion-card-content>
-      <p>Order Date: <strong>{{currentOrder?.orderDate}}</strong></p>
-      <p>Request Date: <strong>{{currentOrder?.requestDate}}</strong></p>
+      <p>Order Date: <strong item-right>{{currentOrder?.orderDate}}</strong></p>
+      <p>Request Date: <strong item-right>{{currentOrder?.requestDate}}</strong></p>
     </ion-card-content>
   </ion-card>
 
@@ -31,7 +31,7 @@
       <ion-list>
         <ion-item *ngFor="let orderItem of orderItemList">
           <span><strong>{{orderItem?.item}}</strong></span>
-          <span> {{orderItem?.qty}} </span>
+          <span item-right><strong>{{orderItem?.qty}}</strong></span>
         </ion-item>
       </ion-list>
       <ion-list no-lines>

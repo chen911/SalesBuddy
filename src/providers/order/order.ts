@@ -20,11 +20,12 @@ export class OrderProvider {
     return this.userProfileRef.child('/orderList').child(orderId);
   }
 
-  createOrder(orderDate: string, requestDate: string, notes: string): firebase.Promise<any> {
+  createOrder(orderDate: string, requestDate: string, notes: string, customer: string): firebase.Promise<any> {
     return this.userProfileRef.child('/orderList').push({
       orderDate: orderDate,
       requestDate: requestDate,
       notes: notes,
+      customer: customer,
       createdDate: new Date().toISOString()
     });
   }

@@ -16,12 +16,18 @@
     </ion-datetime>
   </ion-item>
   <ion-item>
-    <ion-label stacked>Notes</ion-label>
-    <ion-input [(ngModel)]="notes" type="text" placeholder="What's your order details?" required>
+    <ion-label floating>Customer</ion-label>
+    <ion-select [(ngModel)]="customer">
+      <ion-option *ngFor="let customer of customerList"  value="{{customer.id}}">{{customer.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Notes</ion-label>
+    <ion-input [(ngModel)]="notes" type="text"  required>
     </ion-input>
   </ion-item>
 
-  <button ion-button block (click)="createOrder(orderDate, requestDate, notes)">
+  <button ion-button block (click)="createOrder(orderDate, requestDate, notes, customer)">
     Create Order
   </button>
 </ion-content>

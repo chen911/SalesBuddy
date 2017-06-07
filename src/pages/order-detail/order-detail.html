@@ -5,17 +5,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-row padding>
+  <!--<ion-row padding>
     <ion-col col-8>
       Current Order Revenue
     </ion-col>
     <ion-col col-4>
       {{currentOrder?.orderDate}}
     </ion-col>
-  </ion-row>
+  </ion-row>-->
   <ion-card>
     <ion-card-header>
-      {{currentOrder?.customer}}
+      {{currentCustomer?.code}} - {{currentCustomer?.name}}
     </ion-card-header>
     <ion-card-content>
       <p>Order Date: <strong item-right>{{currentOrder?.orderDate}}</strong></p>
@@ -36,12 +36,12 @@
       </ion-list>
       <ion-list no-lines>
         <ion-item>
-          <ion-label stacked>Item</ion-label>
-          <ion-input [(ngModel)]="item" type="text" placeholder=""></ion-input>
+          <ion-label floating>Item</ion-label>
+          <ion-input [(ngModel)]="item" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label stacked>Qty</ion-label>
-          <ion-input [(ngModel)]="qty" type="number" placeholder=""></ion-input>
+          <ion-label floating>Qty</ion-label>
+          <ion-input [(ngModel)]="qty" type="number"></ion-input>
         </ion-item>
 
         <button ion-button color="primary" block (click)="addItem(item, qty)">

@@ -20,4 +20,6 @@ export class HomePage {
   goToOrderList(){ this.navCtrl.push('order-list'); }
 
   goToCustomerList(){ this.navCtrl.push('customer-list'); }
+
+  goToItemList(){ this.navCtrl.push('item-list'); }
 }

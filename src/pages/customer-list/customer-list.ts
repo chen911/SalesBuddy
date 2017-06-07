@@ -11,6 +11,7 @@ import { CustomerProvider } from '../../providers/customer/customer';
 })
 export class CustomerListPage {
   public customerList: Array<any>;
+  public loadedCustomerList:Array<any>;
 
   constructor(public navCtrl: NavController, public customerProvider: CustomerProvider) {}
 
@@ -30,11 +31,39 @@ export class CustomerListPage {
         });
         return false;
       });
+
+      this.loadedCustomerList = this.customerList;
     });
+  }
+
+  initializeCustomers(){
+    this.customerList = this.loadedCustomerList;
+  }
+
+  searchCustomer(searchbar) {
+    // Reset items back to all of the items
+    this.initializeCustomers();
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+
+    this.customerList = this.customerList.filter((v) => {
+      if(v.name && q) {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+
+    console.log(q, this.customerList.length);
+
   }
 
   goToCustomerDetail(customerId){
     this.navCtrl.push('customer-detail', { 'customerId': customerId });
   }
-
 }

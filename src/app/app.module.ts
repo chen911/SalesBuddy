@@ -12,6 +12,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { EventProvider } from '../providers/event/event';
 import { OrderProvider } from '../providers/order/order';
 import { CustomerProvider } from '../providers/customer/customer';
+import { ItemProvider } from '../providers/item/item';
 import { ProfileProvider } from '../providers/profile/profile';
 
 class CameraMock extends Camera {
@@ -48,6 +49,7 @@ class CameraMock extends Camera {
     EventProvider, 
     OrderProvider,
     CustomerProvider,
+    ItemProvider,
     ProfileProvider
   ]
 })

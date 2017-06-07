@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Item List
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"  animated="true"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of itemList">
+      <h2>{{item?.code}}&nbsp;{{item?.name}}</h2>
+      <p>Address: <strong>{{item?.addressLine1}}{{item?.addressLine2}}{{item?.addressLine3}}</strong></p>
+    </ion-item>
+  </ion-list>
+</ion-content>

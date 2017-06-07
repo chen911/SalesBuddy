@@ -36,7 +36,8 @@ export class OrderCreatePage {
   createOrder(orderDate: string, requestDate: string, notes: string, customer: string) {
     this.orderProvider.createOrder(orderDate, requestDate, notes, customer)
     .then( newOrder => {
-      this.navCtrl.pop();
+      // this.navCtrl.pop();
+      this.navCtrl.setRoot('order-detail', { 'orderId': newOrder.key });
     });
   }
 }

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title>{{currentOrder?.orderNumber}}</ion-title>
+    <ion-buttons end>
+      <button ion-button round outline Secondary (click)="goToSave()">
+        SAVE
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

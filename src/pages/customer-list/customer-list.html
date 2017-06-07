@@ -3,16 +3,16 @@
     <ion-title>
       Customer List
     </ion-title>
-    <ion-searchbar (ionInput)="searchCustomer($event)"></ion-searchbar>
     <ion-buttons end>
-      <button ion-button icon-only (click)="goToCreate()">
-        <ion-icon name="person-add"></ion-icon>
-        </button>ADD
+      <button ion-button icon-left (click)="goToCreate()">
+        <ion-icon name="person-add"></ion-icon>ADD
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-searchbar (ionInput)="searchCustomer($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let customer of customerList" (click)="goToCustomerDetail(customer.id)">
       <h2> {{customer?.name}} </h2>

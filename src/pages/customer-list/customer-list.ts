@@ -52,7 +52,8 @@ export class CustomerListPage {
 
     this.customerList = this.customerList.filter((v) => {
       if(v.name && q) {
-        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1 
+              || (v.code && v.code.toLowerCase().indexOf(q.toLowerCase()) > -1)) {
           return true;
         }
         return false;

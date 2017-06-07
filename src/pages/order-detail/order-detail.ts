@@ -55,4 +55,8 @@ export class OrderDetailPage {
         this.qty = null;
       });
     }
+
+    goToSave() {
+      this.navCtrl.setRoot('order-list');
+    }
 }

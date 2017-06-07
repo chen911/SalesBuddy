@@ -36,10 +36,28 @@ export class OrderProvider {
       item: item,
       qty: qty
     })
-    .then((newGuest) => {
+    .then((newItem) => {
       this.userProfileRef.child('/orderList').child(orderId).transaction( order => {
         // order.revenue += orderPrice;
         return order;
+      });
+    });
+  }
+
+  deleteItem(itemId, orderId){
+    this.userProfileRef.child('/orderList').child(orderId).child('/itemList').child(itemId).remove();
+  }
+  
+  updateItem(qty, orderItemId, orderId): firebase.Promise<any> {
+    return this.userProfileRef.child('/orderList').child(orderId).child('itemList').child(orderItemId)
+    .push({
+      qty: qty
+    })
+    .then( newItem => {
+      this.userProfileRef.child('/orderList').child(orderId).child('itemList').child(orderItemId)
+      .transaction( orderItem => {
+        orderItem.qty = qty;
+        return orderItem;
       });
     });
   }

@@ -33,26 +33,33 @@
       Items
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
+      
         <ion-item *ngFor="let orderItem of orderItemList">
           <span><strong>{{orderItem?.item}}</strong></span>
-          <span item-right><strong>{{orderItem?.qty}}</strong></span>
+          <span item-right>
+            <strong>{{orderItem?.qty}}</strong>
+            <button ion-button  Secondary (click)="goToEditItem(orderItem)">
+              <ion-icon name="create"></ion-icon>
+            </button>
+            <button ion-button color="danger" (click)="goToDeleteItem(orderItem.id)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </span>
         </ion-item>
-      </ion-list>
-      <ion-list no-lines>
-        <ion-item>
-          <ion-label floating>Item</ion-label>
-          <ion-input [(ngModel)]="item" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label floating>Qty</ion-label>
-          <ion-input [(ngModel)]="qty" type="number"></ion-input>
-        </ion-item>
+     
 
-        <button ion-button color="primary" block (click)="addItem(item, qty)">
-          Add Item
-        </button>
-      </ion-list>
+      <ion-item>
+        <ion-label floating>Item</ion-label>
+        <ion-input [(ngModel)]="item" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Qty</ion-label>
+        <ion-input [(ngModel)]="qty" type="number"></ion-input>
+      </ion-item>
+
+      <button ion-button color="primary" block (click)="addItem(item, qty)">
+        Add Item
+      </button>
     </ion-card-content>
   </ion-card>
 

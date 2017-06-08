@@ -8,9 +8,9 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let order of orderList" (click)="goToOrderDetail(order.id)">
-      <h2>{{order?.customer}} - {{order?.orderDate}}</h2>
-      <p>Date: <strong>{{order?.requestDate}}</strong></p>
-      <p>Notes: <strong>{{order?.notes}}</strong></p>
+      <h2>{{ order?.orderNo }} - {{ order?.customer }} - {{ order?.orderDate | date : "dd MMM yyyy" }}</h2>
+      <p>Request Date: <strong>{{ order?.requestDate | date : "dd MMM yyyy" }}</strong></p>
+      <p *ngIf="order.notes">Notes: <strong>{{order?.notes}}</strong></p>
     </ion-item>
   </ion-list>
 </ion-content>

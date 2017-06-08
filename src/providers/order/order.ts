@@ -4,6 +4,7 @@ import firebase from 'firebase';
 @Injectable()
 export class OrderProvider {
   public userProfileRef:firebase.database.Reference;
+
   constructor() {
     this.userProfileRef = firebase.database().ref(`userProfile/${firebase.auth().currentUser.uid}`);
   }
@@ -26,6 +27,7 @@ export class OrderProvider {
       requestDate: requestDate,
       notes: notes,
       customer: customer,
+      orderNo: this.getNextOrderNumber(),
       createdDate: new Date().toISOString()
     });
   }
@@ -83,4 +85,17 @@ export class OrderProvider {
     });
   }
 
+  getNextOrderNumber(): number{
+    var order = 0;
+    firebase.database().ref('/APP-ORDER-NO')
+    .push({ })
+    .then((newOrder) => {
+      firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
+        orderNO = orderNO + 1;
+        order = orderNO;
+      });
+    });
+
+    return order;
+  }
 }

@@ -5,29 +5,31 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    <ion-label stacked>Code</ion-label>
-    <ion-input [(ngModel)]="code" type="text" placeholder="Customer's code?">
-    </ion-input>
-  </ion-item>
+  <form>
+    <!--ion-item>
+      <ion-label stacked>Code</ion-label>
+      <ion-input [(ngModel)]="code" type="text" placeholder="Customer's code?">
+      </ion-input>
+    </ion-item-->
 
-  <ion-item>
-    <ion-label stacked>Code</ion-label>
-    <ion-input [(ngModel)]="name" type="text" placeholder="Customer's name?">
-    </ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input [(ngModel)]="name" type="text" placeholder="Customer's name?" required>
+      </ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label stacked>Address</ion-label>
-    <ion-input [(ngModel)]="addressLine1" type="text" placeholder="Address Line1">
-    </ion-input>
-    <ion-input [(ngModel)]="addressLine2" type="text" placeholder="Address Line2">
-    </ion-input>
-    <ion-input [(ngModel)]="addressLine3" type="text" placeholder="Address Line3">
-    </ion-input>
-  </ion-item>
- 
-  <button ion-button block (click)="createCustomer(code, name, addressLine1, addressLine2, addressLine3)">
-    Create Customer
-  </button>
+    <ion-item>
+      <ion-label stacked>Address</ion-label>
+      <ion-input [(ngModel)]="addressLine1" type="text" placeholder="Address Line1">
+      </ion-input>
+      <ion-input [(ngModel)]="addressLine2" type="text" placeholder="Address Line2">
+      </ion-input>
+      <ion-input [(ngModel)]="addressLine3" type="text" placeholder="Address Line3">
+      </ion-input>
+    </ion-item>
+  
+    <button ion-button block (click)="createCustomer(code, name, addressLine1, addressLine2, addressLine3)">
+      Create Customer
+    </button>
+  </form>
 </ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{currentOrder?.orderNumber}}</ion-title>
+    <ion-title>{{currentOrder?.orderNo}}</ion-title>
     <ion-buttons end>
       <button ion-button round outline Secondary (click)="goToSave()">
         SAVE
@@ -20,11 +20,11 @@
   </ion-row>-->
   <ion-card>
     <ion-card-header>
-      {{currentCustomer?.code}} - {{currentCustomer?.name}}
+      {{currentOrder?.customer}}
     </ion-card-header>
     <ion-card-content>
-      <p>Order Date: <strong item-right>{{currentOrder?.orderDate}}</strong></p>
-      <p>Request Date: <strong item-right>{{currentOrder?.requestDate}}</strong></p>
+      <p>Order Date: <strong item-right>{{ currentOrder?.orderDate | date :  "dd MMM yyyy" }} </strong></p>
+      <p>Request Date: <strong item-right>{{ currentOrder?.requestDate | date :  "dd MMM yyyy" }}</strong></p>
     </ion-card-content>
   </ion-card>
 

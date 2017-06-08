@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { OrderProvider } from '../../providers/order/order';
+import { CustomerProvider } from "../../providers/customer/customer";
 
 @IonicPage({
   name: 'order-list'
@@ -10,9 +11,12 @@ import { OrderProvider } from '../../providers/order/order';
   templateUrl: 'order-list.html',
 })
 export class OrderListPage {
+  public customerRef:{}; 
   public orderList: Array<any>;
 
-  constructor(public navCtrl: NavController, public orderProvider: OrderProvider) {}
+  constructor(public navCtrl: NavController, 
+              public orderProvider: OrderProvider, 
+              public customerProvider: CustomerProvider) {}
 
   ionViewDidEnter() {
     this.orderProvider.getOrderList().on('value', snapshot => {
@@ -33,5 +37,15 @@ export class OrderListPage {
   goToOrderDetail(orderId){
     this.navCtrl.push('order-detail', { 'orderId': orderId });
   }
+  
+  getCustomerName(customerId): string{
+    if(customerId){
+      this.customerProvider.getCustomerDetail(customerId)
+      .on('value', customerSnapshot => {
+        return customerSnapshot.val().name;
+      });
+    }
 
+    return;
+  }
 }

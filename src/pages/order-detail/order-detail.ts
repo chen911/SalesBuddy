@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { OrderProvider } from '../../providers/order/order';
 import { CustomerProvider } from '../../providers/customer/customer';
 import { Camera } from '@ionic-native/camera';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ItemProvider } from "../../providers/item/item";
 
 @IonicPage({
   name: 'order-detail',
@@ -16,39 +17,52 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class OrderDetailPage {
   public currentOrder: any = {};
   public currentCustomer: any = {};
-  public item:string = '';
-  public qty:number = null;
+  public item: string = '';
+  public qty: number = null;
   public orderItemList: Array<any>;
-  private itemForm : FormGroup;
+  public itemList: Array<any>;
+  private itemForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public orderProvider: OrderProvider, public cameraPlugin: Camera, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public orderProvider: OrderProvider, public cameraPlugin: Camera,
     public customerProvider: CustomerProvider,
+    public itemProvider: ItemProvider,
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController) {
-    
+
     this.itemForm = this.formBuilder.group({
       item: ['', Validators.required],
       qty: ['', Validators.required],
     });
 
+    //item list initialize
+    this.itemProvider.getItemList().on('value', snapshot => {
+      this.itemList = [];
+      snapshot.forEach(snap => {
+        this.itemList.push({
+          id: snap.key,
+          code: snap.val().code,
+          name: snap.val().name,
+        });
+        return false;
+      });
+    });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.orderProvider.getOrderDetail(this.navParams.get('orderId'))
       .on('value', orderSnapshot => {
         this.currentOrder = orderSnapshot.val();
         this.currentOrder.id = orderSnapshot.key;
 
-        if(orderSnapshot.val().customer)
-        {
+        if (orderSnapshot.val().customer) {
           this.currentCustomer = this.customerProvider.getCustomerDetail(orderSnapshot.val().customer);
         }
-        
+
         //To get order items list
         this.orderProvider.getOrderItemList(orderSnapshot.key).on('value', snapshot => {
           this.orderItemList = [];
-          snapshot.forEach( snap => {
+          snapshot.forEach(snap => {
             this.orderItemList.push({
               id: snap.key,
               item: snap.val().item,
@@ -58,14 +72,14 @@ export class OrderDetailPage {
           });
         });
       });
-    }
+  }
 
   addItem(item, qty) {
     this.orderProvider.addItem(item, qty, this.currentOrder.id)
-    .then(() => {
-      this.item = '';
-      this.qty = null;
-    });
+      .then(() => {
+        this.item = '';
+        this.qty = null;
+      });
   }
 
   goToSave() {
@@ -97,7 +111,7 @@ export class OrderDetailPage {
           text: 'Update',
           handler: data => {
             if (data.qty) {
-                this.orderProvider.updateItem(data.qty, item.id, this.currentOrder.id);
+              this.orderProvider.updateItem(data.qty, item.id, this.currentOrder.id);
             } else {
               return false;
             }
@@ -131,6 +145,4 @@ export class OrderDetailPage {
     });
     alert.present();
   }
-
-    
 }

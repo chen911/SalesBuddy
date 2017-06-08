@@ -28,39 +28,63 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="add-guest-form">
+  <ion-card class="Items">
     <ion-card-header>
       Items
     </ion-card-header>
     <ion-card-content>
-      
-        <ion-item *ngFor="let orderItem of orderItemList">
-          <span><strong>{{orderItem?.item}}</strong></span>
-          <span item-right>
-            <strong>{{orderItem?.qty}}</strong>
-            <button ion-button  Secondary (click)="goToEditItem(orderItem)">
-              <ion-icon name="create"></ion-icon>
-            </button>
-            <button ion-button color="danger" (click)="goToDeleteItem(orderItem.id)">
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </span>
-        </ion-item>
-     
-
-      <ion-item>
-        <ion-label floating>Item</ion-label>
-        <ion-input [(ngModel)]="item" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Qty</ion-label>
-        <ion-input [(ngModel)]="qty" type="number"></ion-input>
-      </ion-item>
-
-      <button ion-button color="primary" block (click)="addItem(item, qty)">
-        Add Item
-      </button>
+      <ion-row *ngFor="let orderItem of orderItemList">
+        <ion-col col-6>
+          {{orderItem?.item}}
+        </ion-col>
+        <ion-col col-2>
+          {{orderItem?.qty}}
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button  Secondary (click)="goToEditItem(orderItem)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button item-right color="danger" (click)="goToDeleteItem(orderItem.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+        <!--span><strong>{{orderItem?.item}}</strong></span>
+        <span item-right>
+          <strong>{{orderItem?.qty}}</strong>
+          <button ion-button  Secondary (click)="goToEditItem(orderItem)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="goToDeleteItem(orderItem.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </span>
+      </ion-item-->
     </ion-card-content>
   </ion-card>
 
-</ion-content>
+  <ion-card class="Add Item">
+    <ion-card-header>
+      Add new item to order
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label stacked>Item</ion-label>
+        <ion-select [(ngModel)]="item" placeholder="Select an item">
+          <ion-option *ngFor="let item of itemList" value="{{item.name}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>QTY</ion-label>
+        <ion-input [(ngModel)]="qty" type="number" placeholder="Enter quantity"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button color="primary" block (click)="addItem(item, qty)">
+          Add Item
+        </button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+<ion-content>

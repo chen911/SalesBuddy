@@ -43,7 +43,7 @@ export class OrderProvider {
       });
     });
   }
-
+  
   deleteItem(itemId, orderId){
     this.userProfileRef.child('/orderList').child(orderId).child('/itemList').child(itemId).remove();
   }

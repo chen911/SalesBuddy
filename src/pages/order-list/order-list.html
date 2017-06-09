@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let order of orderList" (click)="goToOrderDetail(order.id)">
-      <h2>{{ order?.orderNo }} - {{ order?.customer }} - {{ order?.orderDate | date : "dd MMM yyyy" }}</h2>
+      <h2><span item-left>{{ order?.orderNo }} - {{ order?.customer }}</span><span item-right>{{ order?.orderDate | date : "dd MMM yyyy" }}</span></h2>
       <p>Request Date: <strong>{{ order?.requestDate | date : "dd MMM yyyy" }}</strong></p>
       <p *ngIf="order.notes">Notes: <strong>{{order?.notes}}</strong></p>
     </ion-item>

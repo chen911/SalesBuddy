@@ -86,6 +86,13 @@ export class OrderProvider {
   }
 
   getNextOrderNumber(): number{
+    var orderno;
+    var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
+    orderNoRef.on('value', function(snapshot) {
+      orderno = snapshot.val() + 1;
+      firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
+    });
+
     var order = 0;
     firebase.database().ref('/APP-ORDER-NO')
     .push({ })

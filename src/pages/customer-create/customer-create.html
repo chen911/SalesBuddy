@@ -5,30 +5,33 @@
 </ion-header>
 
 <ion-content padding>
-  <form>
     <!--ion-item>
       <ion-label stacked>Code</ion-label>
       <ion-input [(ngModel)]="code" type="text" placeholder="Customer's code?">
       </ion-input>
     </ion-item-->
-
+  <form [formGroup]="customerForm"  (submit)="createCustomer()" novalidate>
     <ion-item>
       <ion-label stacked>Name</ion-label>
-      <ion-input [(ngModel)]="name" type="text" placeholder="Customer's name?" required>
+      <ion-input formControlName="name" type="text" placeholder="Customer's name?"
+       [class.invalid]="!customerForm.controls.name.valid && customerForm.controls.name.dirty">
+      </ion-input>
+    </ion-item>
+    <ion-item class="error-message" 
+      *ngIf="!customerForm.controls.name.valid">
+      <p>Please enter a valid name.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Address</ion-label>
+      <ion-input formControlName="addressLine1" type="text" placeholder="Address Line1">
+      </ion-input>
+      <ion-input formControlName="addressLine2" type="text" placeholder="Address Line2">
+      </ion-input>
+      <ion-input formControlName="addressLine3" type="text" placeholder="Address Line3">
       </ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Address</ion-label>
-      <ion-input [(ngModel)]="addressLine1" type="text" placeholder="Address Line1">
-      </ion-input>
-      <ion-input [(ngModel)]="addressLine2" type="text" placeholder="Address Line2">
-      </ion-input>
-      <ion-input [(ngModel)]="addressLine3" type="text" placeholder="Address Line3">
-      </ion-input>
-    </ion-item>
-  
-    <button ion-button block (click)="createCustomer(code, name, addressLine1, addressLine2, addressLine3)">
+    <button ion-button block type="submit" [disabled]="!customerForm.valid">
       Create Customer
     </button>
   </form>

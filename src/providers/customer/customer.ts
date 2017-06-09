@@ -20,6 +20,18 @@ export class CustomerProvider {
   }
 
   createCustomer(code: string, name: string, addressLine1: string, addressLine2: string, addressLine3: string): firebase.Promise<any> {
+    if(!code) {
+      code="";
+    }
+    if(!addressLine1) {
+      addressLine1="";
+    }
+    if(!addressLine2) {
+      addressLine2="";
+    }
+    if(!addressLine3) {
+      addressLine3="";
+    }
     return this.customerRef.push({
       code: code,
       name: name,

@@ -2,7 +2,8 @@
   <ion-navbar>
     <ion-title>{{currentOrder?.orderNo}}</ion-title>
     <ion-buttons end>
-      <button ion-button round outline Secondary (click)="goToSave()">
+      <button ion-button round outline Secondary (click)="goToSave()" 
+              *ngIf="this.newOrder==true">
         SAVE
       </button>
     </ion-buttons>
@@ -70,21 +71,23 @@
       Add new item to order
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label stacked>Item</ion-label>
-        <ion-select [(ngModel)]="item" placeholder="Select an item">
-          <ion-option *ngFor="let item of itemList" value="{{item.name}}">{{item.name}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>QTY</ion-label>
-        <ion-input [(ngModel)]="qty" type="number" placeholder="Enter quantity"></ion-input>
-      </ion-item>
-      <ion-item>
-        <button ion-button color="primary" block (click)="addItem(item, qty)">
-          Add Item
-        </button>
-      </ion-item>
+      <form [formGroup]="orderItemForm" (submit)="addItem()" novalidate>
+        <ion-item>
+          <ion-label stacked>Item</ion-label>
+          <ion-select formControlName="item" placeholder="Select an item" required>
+            <ion-option *ngFor="let item of itemList" value="{{item.name}}">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>QTY</ion-label>
+          <ion-input formControlName="qty" type="number" placeholder="Enter quantity" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button block type="submit" [disabled]="!orderItemForm.valid">
+            Add Item
+          </button>
+        </ion-item>
+      </form>
     </ion-card-content>
   </ion-card>
 <ion-content>

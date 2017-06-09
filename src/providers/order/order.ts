@@ -22,12 +22,15 @@ export class OrderProvider {
   }
 
   createOrder(orderDate: string, requestDate: string, notes: string, customer: string): firebase.Promise<any> {
+    if(!notes) {
+      notes="";
+    }
     return this.userProfileRef.child('/orderList').push({
       orderDate: orderDate,
       requestDate: requestDate,
       notes: notes,
       customer: customer,
-      orderNo: this.getNextOrderNumber(),
+      // orderNo: this.getNextOrderNumber(),
       createdDate: new Date().toISOString()
     });
   }
@@ -85,24 +88,24 @@ export class OrderProvider {
     });
   }
 
-  getNextOrderNumber(): number{
-    var orderno;
-    var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
-    orderNoRef.on('value', function(snapshot) {
-      orderno = snapshot.val() + 1;
-      firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
-    });
+  // getNextOrderNumber(): number{
+  //   var orderno;
+  //   var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
+  //   orderNoRef.on('value', function(snapshot) {
+  //     orderno = snapshot.val() + 1;
+  //     firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
+  //   });
 
-    var order = 0;
-    firebase.database().ref('/APP-ORDER-NO')
-    .push({ })
-    .then((newOrder) => {
-      firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
-        orderNO = orderNO + 1;
-        order = orderNO;
-      });
-    });
+  //   var order = 0;
+  //   firebase.database().ref('/APP-ORDER-NO')
+  //   .push({ })
+  //   .then((newOrder) => {
+  //     firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
+  //       orderNO = orderNO + 1;
+  //       order = orderNO;
+  //     });
+  //   });
 
-    return order;
-  }
+  //   return order;
+  // }
 }

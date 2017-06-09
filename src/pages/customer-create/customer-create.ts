@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @IonicPage({
   name: 'customer-create'
@@ -10,13 +11,27 @@ import { CustomerProvider } from '../../providers/customer/customer';
   templateUrl: 'customer-create.html',
 })
 export class CustomerCreatePage {
+  public customerForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public customerProvider: CustomerProvider) {}
+  constructor(public navCtrl: NavController, 
+              public customerProvider: CustomerProvider, 
+              public formBuilder: FormBuilder) 
+  {
+      this.customerForm = formBuilder.group({
+        name: ['', Validators.compose([Validators.required])],
+        addressLine1: [''],
+        addressLine2: [''],
+        addressLine3: ['']
+      });
+  }
 
-  createCustomer(code: string, name: string, addressLine1: string, addressLine2: string, addressLine3: string) {
-    this.customerProvider.createCustomer(code, name, addressLine1, addressLine2, addressLine3)
-    .then( newCustomer => {
-      this.navCtrl.pop();
-    });
+  createCustomer() {
+    this.customerProvider.createCustomer("",  this.customerForm.value.name, 
+                                              this.customerForm.value.addressLine1, 
+                                              this.customerForm.value.addressLine2, 
+                                              this.customerForm.value.addressLine3)
+      .then(newCustomer => {
+        this.navCtrl.pop();
+      });
   }
 }

@@ -5,29 +5,35 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    <ion-label>Order Date</ion-label>
-    <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="orderDate" required>
-    </ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-label>Request Date</ion-label>
-    <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="requestDate" required>
-    </ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Customer</ion-label>
-    <ion-select [(ngModel)]="customer">
-      <ion-option *ngFor="let customer of customerList"  value="{{customer.name}}">{{customer.name}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Notes</ion-label>
-    <ion-input [(ngModel)]="notes" type="text"  required>
-    </ion-input>
-  </ion-item>
+  <form [formGroup]="orderForm"  (submit)="createOrder()" novalidate>
+    <ion-item>
+      <ion-label>Order Date</ion-label>
+      <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" formControlName="orderDate" required>
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Request Date</ion-label>
+      <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" formControlName="requestDate" required>
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Customer</ion-label>
+      <ion-select formControlName="customer">
+        <ion-option *ngFor="let customer of customerList"  value="{{customer.name}}">{{customer.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="error-message" 
+      *ngIf="!orderForm.controls.customer.valid">
+      <p>Please select a customer.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Notes</ion-label>
+      <ion-input formControlName="notes" type="text">
+      </ion-input>
+    </ion-item>
 
-  <button ion-button block (click)="createOrder(orderDate, requestDate, notes, customer)">
-    Create Order
-  </button>
+    <button ion-button block type="submit" [disabled]="!orderForm.valid">
+      Create Order
+    </button>
+  </form>
 </ion-content>

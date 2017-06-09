@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { OrderProvider } from '../../providers/order/order';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @IonicPage({
   name: 'order-create'
@@ -11,14 +12,13 @@ import { CustomerProvider } from '../../providers/customer/customer';
   templateUrl: 'order-create.html',
 })
 export class OrderCreatePage {
-
-  public orderDate: String    = new Date().toISOString();
-  public requestDate: String  = new Date().toISOString();
+  public orderForm: FormGroup;
   public customerList: Array<any>;
 
   constructor(public navCtrl: NavController, 
-      public orderProvider: OrderProvider,  
-      public customerProvider: CustomerProvider) 
+              public orderProvider: OrderProvider,  
+              public customerProvider: CustomerProvider,
+              public formBuilder: FormBuilder) 
   {
     this.customerProvider.getCustomerList().on('value', snapshot => {
       this.customerList = [];
@@ -31,13 +31,23 @@ export class OrderCreatePage {
         return false;
       });
     });
+
+    this.orderForm = formBuilder.group({
+        customer: ['', Validators.compose([Validators.required])],
+        orderDate: [new Date().toISOString(), Validators.compose([Validators.required])],
+        requestDate: [new Date().toISOString(), Validators.compose([Validators.required])],
+        notes: ['']
+      });
   }
 
-  createOrder(orderDate: string, requestDate: string, notes: string, customer: string) {
-    this.orderProvider.createOrder(orderDate, requestDate, notes, customer)
+  createOrder() {
+    this.orderProvider.createOrder( this.orderForm.value.orderDate, 
+                                    this.orderForm.value.requestDate, 
+                                    this.orderForm.value.notes, 
+                                    this.orderForm.value.customer)
     .then( newOrder => {
       // this.navCtrl.pop();
-      this.navCtrl.setRoot('order-detail', { 'orderId': newOrder.key });
+      this.navCtrl.setRoot('order-detail', { 'orderId': newOrder.key, 'newOrder': true });
     });
   }
 }

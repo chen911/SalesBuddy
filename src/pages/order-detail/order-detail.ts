@@ -17,11 +17,10 @@ import { ItemProvider } from "../../providers/item/item";
 export class OrderDetailPage {
   public currentOrder: any = {};
   public currentCustomer: any = {};
-  public item: string = '';
-  public qty: number = null;
   public orderItemList: Array<any>;
   public itemList: Array<any>;
-  private itemForm: FormGroup;
+  private orderItemForm: FormGroup;
+  public newOrder:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderProvider: OrderProvider, public cameraPlugin: Camera,
@@ -29,8 +28,9 @@ export class OrderDetailPage {
     public itemProvider: ItemProvider,
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController) {
+    
 
-    this.itemForm = this.formBuilder.group({
+    this.orderItemForm = this.formBuilder.group({
       item: ['', Validators.required],
       qty: ['', Validators.required],
     });
@@ -50,6 +50,9 @@ export class OrderDetailPage {
   }
 
   ionViewDidEnter() {
+    
+    this.newOrder = this.navParams.get('newOrder');
+
     this.orderProvider.getOrderDetail(this.navParams.get('orderId'))
       .on('value', orderSnapshot => {
         this.currentOrder = orderSnapshot.val();
@@ -74,11 +77,11 @@ export class OrderDetailPage {
       });
   }
 
-  addItem(item, qty) {
-    this.orderProvider.addItem(item, qty, this.currentOrder.id)
+  addItem() {
+    this.orderProvider.addItem(this.orderItemForm.value.item, this.orderItemForm.value.qty, this.currentOrder.id)
       .then(() => {
-        this.item = '';
-        this.qty = null;
+        this.orderItemForm.value.item = '';
+        this.orderItemForm.value.qty = null;
       });
   }
 

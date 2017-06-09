@@ -21,6 +21,8 @@ export class OrderDetailPage {
   public itemList: Array<any>;
   private orderItemForm: FormGroup;
   public newOrder:boolean;
+  public item: string = '';		
+  public qty: number = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderProvider: OrderProvider, public cameraPlugin: Camera,
@@ -50,7 +52,7 @@ export class OrderDetailPage {
   }
 
   ionViewDidEnter() {
-    
+
     this.newOrder = this.navParams.get('newOrder');
 
     this.orderProvider.getOrderDetail(this.navParams.get('orderId'))
@@ -80,8 +82,7 @@ export class OrderDetailPage {
   addItem() {
     this.orderProvider.addItem(this.orderItemForm.value.item, this.orderItemForm.value.qty, this.currentOrder.id)
       .then(() => {
-        this.orderItemForm.value.item = '';
-        this.orderItemForm.value.qty = null;
+        this.orderItemForm.reset();
       });
   }
 

@@ -30,7 +30,7 @@ export class OrderProvider {
       requestDate: requestDate,
       notes: notes,
       customer: customer,
-      // orderNo: this.getNextOrderNumber(),
+      orderNo: this.getNextOrderNumber(),
       createdDate: new Date().toISOString()
     });
   }
@@ -88,24 +88,35 @@ export class OrderProvider {
     });
   }
 
-  // getNextOrderNumber(): number{
-  //   var orderno;
-  //   var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
-  //   orderNoRef.on('value', function(snapshot) {
-  //     orderno = snapshot.val() + 1;
-  //     firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
-  //   });
+  getNextOrderNumber(): number{
+  var records;
+    
+  firebase.database().ref('APP-ORDER-NO')
+  .once('value')
+  .then(snapshot => {
+   records = snapshot.val() + 1;
+    console.log('current records: ', records);
+    // return records;
+    snapshot.update(records);
+  })
+  .catch(error => console.log(error));
 
-  //   var order = 0;
-  //   firebase.database().ref('/APP-ORDER-NO')
-  //   .push({ })
-  //   .then((newOrder) => {
-  //     firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
-  //       orderNO = orderNO + 1;
-  //       order = orderNO;
-  //     });
-  //   });
+    // var orderno;
+    // var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
+    // orderNoRef.on('value', function(snapshot) {
+    //   orderno = snapshot.val() + 1;
+    //   firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
+    // });
 
-  //   return order;
-  // }
+    // var order = 0;
+    // firebase.database().ref('/APP-ORDER-NO')
+    // .push({ })
+    // .then((newOrder) => {
+    //   firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
+    //     orderNO = orderNO + 1;
+    //     order = orderNO;
+    //   });
+    // });
+     return records;
+  }
 }

@@ -24,6 +24,7 @@ export class OrderListPage {
       snapshot.forEach( snap => {
         this.orderList.push({
           id: snap.key,
+          orderNo: snap.val().orderNo,
           orderDate: snap.val().orderDate,
           requestDate: snap.val().requestDate,
           notes: snap.val().notes,

@@ -19,9 +19,21 @@ export class CustomerProvider {
     return this.customerRef.child(customerId);
   }
 
-  createCustomer(code: string, name: string, addressLine1: string, addressLine2: string, addressLine3: string): firebase.Promise<any> {
+  createCustomer( code: string, 
+                  name: string, 
+                  telephone: number, 
+                  contactPersonName: string, 
+                  addressLine1: string, 
+                  addressLine2: string, 
+                  addressLine3: string): firebase.Promise<any> {
     if(!code) {
       code="";
+    }   
+    if(!telephone) {
+      telephone=null;
+    }   
+    if(!contactPersonName) {
+      contactPersonName="";
     }
     if(!addressLine1) {
       addressLine1="";
@@ -35,6 +47,8 @@ export class CustomerProvider {
     return this.customerRef.push({
       code: code,
       name: name,
+      telephone: telephone,
+      contactPersonName: contactPersonName,
       addressLine1: addressLine1,
       addressLine2: addressLine2,
       addressLine3: addressLine3,

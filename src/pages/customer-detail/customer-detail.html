@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title>Customer Details</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -10,6 +10,8 @@
       {{currentCustomer?.code}} &nbsp; {{currentCustomer?.name}}
     </ion-card-header>
     <ion-card-content>
+      <h3 *ngIf="currentCustomer?.telephone">Telephone: {{currentCustomer?.telephone}}</h3>
+      <h3 *ngIf="currentCustomer?.contactPersonName">Contact Person: {{currentCustomer?.contactPersonName}}</h3>
       <p>{{currentCustomer?.addressLine1}}</p>
       <p>{{currentCustomer?.addressLine2}}</p>
       <p>{{currentCustomer?.addressLine3}}</p>

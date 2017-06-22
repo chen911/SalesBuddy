@@ -12,6 +12,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { EventProvider } from '../providers/event/event';
 import { OrderProvider } from '../providers/order/order';
 import { CustomerProvider } from '../providers/customer/customer';
+import { ReturnProvider } from '../providers/return/return';
 import { ItemProvider } from '../providers/item/item';
 import { ProfileProvider } from '../providers/profile/profile';
 
@@ -44,11 +45,12 @@ class CameraMock extends Camera {
     StatusBar,
     SplashScreen,
     {provide: Camera, useClass: CameraMock},
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    AuthProvider, 
-    EventProvider, 
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
+    EventProvider,
     OrderProvider,
     CustomerProvider,
+    ReturnProvider,
     ItemProvider,
     ProfileProvider
   ]

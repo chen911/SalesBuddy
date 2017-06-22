@@ -16,8 +16,8 @@
   <ion-list>
     <ion-item *ngFor="let customer of customerList" (click)="goToCustomerDetail(customer.id)">
       <h2> {{customer?.name}} </h2>
-      <h3> Code: <strong>{{customer?.code}}</strong> </h3>
-      <p>Address: <strong>{{customer?.addressLine1}}{{customer?.addressLine2}}{{customer?.addressLine3}}</strong></p>
+      <h3> Code: <strong>{{customer?.code}}</strong> </h3>name
+      <p>Address: {{customer?.addressLine1}} {{customer?.addressLine2}} {{customer?.addressLine3}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

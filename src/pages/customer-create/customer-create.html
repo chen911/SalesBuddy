@@ -17,9 +17,22 @@
        [class.invalid]="!customerForm.controls.name.valid && customerForm.controls.name.dirty">
       </ion-input>
     </ion-item>
-    <ion-item class="error-message" 
-      *ngIf="!customerForm.controls.name.valid">
+    <ion-item class="error-message" *ngIf="!customerForm.controls.name.valid">
       <p>Please enter a valid name.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Telephone</ion-label>
+      <ion-input formControlName="telephone" type="number" placeholder="Phone number"
+       [class.invalid]="!customerForm.controls.telephone.valid && customerForm.controls.telephone.dirty">
+      </ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!customerForm.controls.telephone.valid">
+      <p>Please enter a valid phone/mobile number.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Contact Person</ion-label>
+      <ion-input formControlName="contactPersonName" type="text" placeholder="Contact person's name?" >
+      </ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Address</ion-label>

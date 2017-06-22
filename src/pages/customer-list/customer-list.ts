@@ -26,8 +26,8 @@ export class CustomerListPage {
           code: snap.val().code,
           name: snap.val().name,
           addressLine1: snap.val().addressLine1,
-          addressLine2: snap.val().addressLine1,
-          addressLine3: snap.val().addressLine1
+          addressLine2: snap.val().addressLine2,
+          addressLine3: snap.val().addressLine3
         });
         return false;
       });

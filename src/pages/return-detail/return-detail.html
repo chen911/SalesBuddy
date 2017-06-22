@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{currentReturn?.returnNo}}</ion-title>
+    <ion-buttons end>
+      <button ion-button round outline Secondary (click)="goToSave()" 
+              *ngIf="this.newReturn==true">
+        SAVE
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--<ion-row padding>
+    <ion-col col-8>
+      Current Return Revenue
+    </ion-col>
+    <ion-col col-4>
+      {{currentReturn?.returnDate}}
+    </ion-col>
+  </ion-row>-->
+  <ion-card>
+    <ion-card-header>
+      {{currentReturn?.customer}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>Return Date: <strong item-right>{{ currentReturn?.returnDate | date :  "dd MMM yyyy" }} </strong></p>
+      <p>Original Order Number: <strong item-right>{{ currentReturn?.originaOrderNumber }}</strong></p>
+      <p>Original Order Date: <strong item-right>{{ currentReturn?.originaOrderDate | date :  "dd MMM yyyy" }}</strong></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="Items">
+    <ion-card-header>
+      Return Items
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row *ngFor="let returnItem of returnItemList">
+        <ion-col col-6>
+          {{returnItem?.item}}
+        </ion-col>
+        <ion-col col-2>
+          {{returnItem?.qty}}
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button  Secondary (click)="goToEditItem(returnItem)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button item-right color="danger" (click)="goToDeleteItem(returnItem.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+        <!--span><strong>{{returnItem?.item}}</strong></span>
+        <span item-right>
+          <strong>{{returnItem?.qty}}</strong>
+          <button ion-button  Secondary (click)="goToEditItem(returnItem)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="goToDeleteItem(returnItem.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </span>
+      </ion-item-->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="Add Item">
+    <ion-card-header>
+      Add new item to return
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="returnItemForm" (submit)="addItem()" novalidate>
+        <ion-item>
+          <ion-label stacked>Item</ion-label>
+          <ion-select formControlName="item" placeholder="Select an item" required>
+            <ion-option *ngFor="let item of itemList" value="{{item.name}}">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Return QTY</ion-label>
+          <ion-input formControlName="qty" type="number" placeholder="Enter quantity" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button block type="submit" [disabled]="!returnItemForm.valid">
+            Add Item
+          </button>
+        </ion-item>
+      </form>
+    </ion-card-content>
+  </ion-card>
+<ion-content>

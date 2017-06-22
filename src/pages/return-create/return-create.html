@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>New Return</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="returnForm"  (submit)="createReturn()" novalidate>
+    <ion-item>
+      <ion-label>Return Date</ion-label>
+      <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" formControlName="returnDate" required>
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Customer</ion-label>
+      <ion-select formControlName="customer">
+        <ion-option *ngFor="let customer of customerList"  value="{{customer.name}}">{{customer.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="error-message" 
+      *ngIf="!returnForm.controls.customer.valid">
+      <p>Please select a customer.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Original sales order number</ion-label>
+      <ion-input formControlName="originalOrderNumber" type="text">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Original sales order date</ion-label>
+      <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMM YYYY" formControlName="originalOrderDate">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Return Details</ion-label>
+      <ion-input formControlName="notes" type="text">
+      </ion-input>
+    </ion-item>
+
+    <button ion-button block type="submit" [disabled]="!returnForm.valid">
+      Create Return
+    </button>
+  </form>
+</ion-content>

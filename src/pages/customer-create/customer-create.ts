@@ -19,6 +19,8 @@ export class CustomerCreatePage {
   {
       this.customerForm = formBuilder.group({
         name: ['', Validators.compose([Validators.required])],
+        telephone: ['', Validators.compose([Validators.required])],
+        contactPersonName: [''],
         addressLine1: [''],
         addressLine2: [''],
         addressLine3: ['']
@@ -27,7 +29,9 @@ export class CustomerCreatePage {
 
   createCustomer() {
     this.customerProvider.createCustomer("",  this.customerForm.value.name, 
-                                              this.customerForm.value.addressLine1, 
+                                              this.customerForm.value.telephone, 
+                                              this.customerForm.value.contactPersonName, 
+                                              this.customerForm.value.addressLine1,
                                               this.customerForm.value.addressLine2, 
                                               this.customerForm.value.addressLine3)
       .then(newCustomer => {

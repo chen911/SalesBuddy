@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ReturnProvider } from '../../providers/return/return';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { HomePage } from '../home/home';
 import { Camera } from '@ionic-native/camera';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ItemProvider } from "../../providers/item/item";
@@ -87,7 +88,7 @@ export class ReturnDetailPage {
   }
 
   goToSave() {
-    this.navCtrl.setRoot('return-list');
+    this.navCtrl.setRoot(HomePage);
   }
 
 

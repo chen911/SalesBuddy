@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{currentReturn?.returnNo}}</ion-title>
+    <ion-title>
+      <ion-icon item-left name="paper"></ion-icon>
+      &nbsp;{{currentReturn?.returnNo}} Return Details
+    </ion-title>
     <ion-buttons end>
       <button ion-button round outline Secondary (click)="goToSave()" 
               *ngIf="this.newReturn==true">
@@ -21,6 +24,7 @@
   </ion-row>-->
   <ion-card>
     <ion-card-header>
+      <ion-icon item-left name="contact"></ion-icon>
       {{currentReturn?.customer}}
     </ion-card-header>
     <ion-card-content>
@@ -37,6 +41,7 @@
     <ion-card-content>
       <ion-row *ngFor="let returnItem of returnItemList">
         <ion-col col-6>
+          <ion-icon item-left name="pricetag"></ion-icon>
           {{returnItem?.item}}
         </ion-col>
         <ion-col col-2>
@@ -69,6 +74,7 @@
 
   <ion-card class="Add Item">
     <ion-card-header>
+      <ion-icon item-start name="create"></ion-icon>
       Add new item to return
     </ion-card-header>
     <ion-card-content>

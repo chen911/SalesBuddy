@@ -26,7 +26,8 @@ export class ReturnListPage {
           id: snap.key,
           returnNo: snap.val().returnNo,
           returnDate: snap.val().returnDate,
-          requestDate: snap.val().requestDate,
+          originalOrderDate: snap.val().requestDate,
+          originalOrderNumber: snap.val().originalOrderNumber,
           notes: snap.val().notes,
           customer: snap.val().customer
         });

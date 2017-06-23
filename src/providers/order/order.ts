@@ -30,7 +30,7 @@ export class OrderProvider {
       requestDate: requestDate,
       notes: notes,
       customer: customer,
-      orderNo: this.getNextOrderNumber(),
+      orderNo: '',
       createdDate: new Date().toISOString()
     });
   }

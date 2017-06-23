@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
+      <ion-icon item-left name="people"></ion-icon>
       Customer List
     </ion-title>
     <ion-buttons end>
@@ -15,7 +16,10 @@
   <ion-searchbar (ionInput)="searchCustomer($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let customer of customerList" (click)="goToCustomerDetail(customer.id)">
-      <h2> {{customer?.name}} </h2>
+      <h2> 
+        <ion-icon item-left name="person"></ion-icon>
+        {{customer?.name}} 
+      </h2>
       <h3> Code: <strong>{{customer?.code}}</strong> </h3>name
       <p>Address: {{customer?.addressLine1}} {{customer?.addressLine2}} {{customer?.addressLine3}}</p>
     </ion-item>

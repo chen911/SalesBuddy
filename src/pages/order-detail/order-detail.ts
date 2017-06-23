@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { OrderProvider } from '../../providers/order/order';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { HomePage } from '../home/home';
 import { Camera } from '@ionic-native/camera';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ItemProvider } from "../../providers/item/item";
@@ -87,7 +88,7 @@ export class OrderDetailPage {
   }
 
   goToSave() {
-    this.navCtrl.setRoot('order-list');
+    this.navCtrl.setRoot(HomePage);
   }
 
 

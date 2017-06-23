@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Returns List</ion-title>
+    <ion-title>
+      <ion-icon item-left name="list"></ion-icon>
+      &nbsp;Returns List
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,7 +11,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let return of returnList" (click)="goToReturnDetail(return.id)">
-      <h2><span item-left>{{ return?.returnNo }} - {{ return?.customer }}</span><span item-right>{{ return?.returnDate | date : "dd MMM yyyy" }}</span></h2>
+      <h2>
+        <ion-icon item-left name="paper"></ion-icon>
+        <span item-left>{{ return?.returnNo }} - {{ return?.customer }}</span>
+      </h2>
       <p>Return Date: <strong>{{ return?.returnDate | date : "dd MMM yyyy" }}</strong></p>
       <p *ngIf="return.notes">Notes: <strong>{{return?.notes}}</strong></p>
     </ion-item>

@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{currentOrder?.orderNo}}</ion-title>
+    <ion-title>
+      <ion-icon item-left name="book"></ion-icon>
+      &nbsp; {{currentOrder?.orderNo}} Order Details
+    </ion-title>
     <ion-buttons end>
       <button ion-button round outline Secondary (click)="goToSave()" 
               *ngIf="this.newOrder==true">
@@ -21,6 +24,7 @@
   </ion-row>-->
   <ion-card>
     <ion-card-header>
+      <ion-icon item-left name="contact"></ion-icon>
       {{currentOrder?.customer}}
     </ion-card-header>
     <ion-card-content>
@@ -36,6 +40,7 @@
     <ion-card-content>
       <ion-row *ngFor="let orderItem of orderItemList">
         <ion-col col-6>
+          <ion-icon item-left name="pricetag"></ion-icon>
           {{orderItem?.item}}
         </ion-col>
         <ion-col col-2>
@@ -52,22 +57,12 @@
           </button>
         </ion-col>
       </ion-row>
-        <!--span><strong>{{orderItem?.item}}</strong></span>
-        <span item-right>
-          <strong>{{orderItem?.qty}}</strong>
-          <button ion-button  Secondary (click)="goToEditItem(orderItem)">
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <button ion-button color="danger" (click)="goToDeleteItem(orderItem.id)">
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </span>
-      </ion-item-->
     </ion-card-content>
   </ion-card>
 
   <ion-card class="Add Item">
     <ion-card-header>
+      <ion-icon item-start name="create"></ion-icon>
       Add new item to order
     </ion-card-header>
     <ion-card-content>

@@ -1,7 +1,8 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Item List
+      <ion-icon name="pricetags"></ion-icon>
+      &nbsp;Item List
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +11,10 @@
   <ion-searchbar (ionInput)="searchItem($event)"  animated="true"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of itemList">
-      <h2>{{item?.code}}&nbsp;<strong>{{item?.name}}</strong></h2>
+      <h2>
+        <ion-icon item-left name="pricetag"></ion-icon>
+        {{item?.code}}&nbsp;<strong>{{item?.name}}</strong>
+      </h2>
     </ion-item>
   </ion-list>
 </ion-content>

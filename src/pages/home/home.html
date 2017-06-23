@@ -13,27 +13,48 @@
 
 <ion-content padding>
   <ion-card>
-    <button ion-button block color="primary" (click)="goToOrderCreate()">
-      Create a new sales order
-    </button>
-    <button ion-button block color="primary" (click)="goToOrderList()">
-      See your sales orders
-    </button>
+    <ion-card-header>
+      Sales
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button full color="primary" (click)="goToOrderCreate()">
+        <ion-icon item-left name="book"></ion-icon>&nbsp;&nbsp;
+        Create a new sales order
+      </button>
+      <button ion-button block color="secondary" (click)="goToOrderList()">
+        <ion-icon item-left name="list-box"></ion-icon>&nbsp;&nbsp;
+        See your sales orders
+      </button>
+    </ion-card-content>
   </ion-card>
   <ion-card>
-    <button ion-button block color="primary" (click)="goToReturnCreate()">
-      Create a return
-    </button>
-    <button ion-button block color="primary" (click)="goToReturnList()">
-      See your returns
-    </button>
+    <ion-card-header>
+      Returns
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button block color="primary" (click)="goToReturnCreate()">
+        <ion-icon item-left name="paper"></ion-icon>&nbsp;&nbsp;
+        Create a return
+      </button>
+      <button ion-button block color="secondary" (click)="goToReturnList()">
+        <ion-icon item-start	 name="list"></ion-icon>&nbsp;&nbsp;
+        See your returns
+      </button>
+    </ion-card-content>
   </ion-card>
   <ion-card>
-    <button ion-button block color="primary" (click)="goToCustomerList()">
-      Customers
-    </button>
-    <button ion-button block color="primary" (click)="goToItemList()">
-      Items
-    </button>
+    <ion-card-header>
+      Reference
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button block color="primary" (click)="goToCustomerList()">
+        <ion-icon item-left name="people"></ion-icon>&nbsp;&nbsp;
+        Customers
+      </button>
+      <button ion-button block color="secondary" (click)="goToItemList()">
+        <ion-icon item-left name="pricetags"></ion-icon>&nbsp;&nbsp;
+        Items
+      </button>
+    </ion-card-content>
   </ion-card>
 </ion-content>

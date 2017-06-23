@@ -53,18 +53,13 @@ export class OrderProvider {
     this.userProfileRef.child('/orderList').child(orderId).child('/itemList').child(itemId).remove();
   }
   
-  updateItem(qty, orderItemId, orderId): firebase.Promise<any> {
-    return this.userProfileRef.child('/orderList').child(orderId).child('itemList').child(orderItemId)
-    .push({
-      qty: qty
-    })
-    .then( newItem => {
-      this.userProfileRef.child('/orderList').child(orderId).child('itemList').child(orderItemId)
+  updateItem(qty, orderItemId, orderId) {
+
+    this.userProfileRef.child('/orderList').child(orderId).child('itemList').child(orderItemId)
       .transaction( orderItem => {
         orderItem.qty = qty;
         return orderItem;
       });
-    });
   }
 
   addGuest(guestName, orderId, orderPrice, guestPicture = null): firebase.Promise<any> {
@@ -118,5 +113,13 @@ export class OrderProvider {
     //   });
     // });
      return records;
+  }
+
+  submit(orderId) {
+    this.userProfileRef.child('/orderList').child(orderId)
+    .transaction( order => { 
+      order.submitted= true
+      return order;
+    });
   }
 }

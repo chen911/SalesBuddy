@@ -47,12 +47,12 @@
           {{orderItem?.qty}}
         </ion-col>
         <ion-col col-2>
-          <button ion-button  Secondary (click)="goToEditItem(orderItem)">
+          <button ion-button  Secondary (click)="goToEditItem(orderItem)" *ngIf="!currentOrder?.submitted">
             <ion-icon name="create"></ion-icon>
           </button>
         </ion-col>
         <ion-col col-2>
-          <button ion-button item-right color="danger" (click)="goToDeleteItem(orderItem.id)">
+          <button ion-button item-right color="danger" (click)="goToDeleteItem(orderItem.id)" *ngIf="!currentOrder?.submitted">
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-col>
@@ -60,7 +60,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="Add Item">
+  <ion-card class="Add Item" *ngIf="!currentOrder?.submitted">
     <ion-card-header>
       <ion-icon item-start name="create"></ion-icon>
       Add new item to order
@@ -85,4 +85,15 @@
       </form>
     </ion-card-content>
   </ion-card>
-<ion-content>
+
+  <ion-card class="Submit Order">
+    <ion-card-header *ngIf="currentOrder?.submitted" >
+      <p>Sales order has been successfully submitted.</p>
+    </ion-card-header>
+    <ion-card-content *ngIf="!currentOrder?.submitted" >
+      <button ion-button block color="secondary" (click)="goToSubmit()">
+        Submit Your Sales Order
+      </button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

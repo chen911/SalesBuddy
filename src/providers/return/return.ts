@@ -10,15 +10,15 @@ export class ReturnProvider {
   }
 
   getReturnList(): firebase.database.Reference {
-    return this.userProfileRef.child('/oReturnList');
+    return this.userProfileRef.child('/returnList');
   }
 
   getReturnItemList(oReturnId): firebase.database.Reference {
-    return this.userProfileRef.child('/oReturnList').child(oReturnId).child('/itemList');
+    return this.userProfileRef.child('/returnList').child(oReturnId).child('/itemList');
   }
 
   getReturnDetail(oReturnId:string): firebase.database.Reference {
-    return this.userProfileRef.child('/oReturnList').child(oReturnId);
+    return this.userProfileRef.child('/returnList').child(oReturnId);
   }
 
   createReturn( returnDate: string, 
@@ -29,7 +29,7 @@ export class ReturnProvider {
     if(!notes) {
       notes="";
     }
-    return this.userProfileRef.child('/oReturnList').push({
+    return this.userProfileRef.child('/returnList').push({
       returnDate: returnDate,
       customer: customer,
       originalOrderNumber: originalOrderNumber,
@@ -39,13 +39,13 @@ export class ReturnProvider {
   }
 
   addItem(item, qty, oReturnId): firebase.Promise<any> {
-    return this.userProfileRef.child('/oReturnList').child(oReturnId).child('itemList')
+    return this.userProfileRef.child('/returnList').child(oReturnId).child('itemList')
     .push({
       item: item,
       qty: qty
     })
     .then((newItem) => {
-      this.userProfileRef.child('/oReturnList').child(oReturnId).transaction( oReturn => {
+      this.userProfileRef.child('/returnList').child(oReturnId).transaction( oReturn => {
         // oReturn.revenue += oReturnPrice;
         return oReturn;
       });
@@ -53,30 +53,24 @@ export class ReturnProvider {
   }
   
   deleteItem(itemId, oReturnId){
-    this.userProfileRef.child('/oReturnList').child(oReturnId).child('/itemList').child(itemId).remove();
+    this.userProfileRef.child('/returnList').child(oReturnId).child('/itemList').child(itemId).remove();
   }
   
-  updateItem(qty, oReturnItemId, oReturnId): firebase.Promise<any> {
-    return this.userProfileRef.child('/oReturnList').child(oReturnId).child('itemList').child(oReturnItemId)
-    .push({
-      qty: qty
-    })
-    .then( newItem => {
-      this.userProfileRef.child('/oReturnList').child(oReturnId).child('itemList').child(oReturnItemId)
-      .transaction( oReturnItem => {
-        oReturnItem.qty = qty;
-        return oReturnItem;
-      });
+  updateItem(qty, oReturnItemId, oReturnId) {
+    this.userProfileRef.child('/returnList').child(oReturnId).child('itemList').child(oReturnItemId)
+    .transaction( oReturnItem => {
+      oReturnItem.qty = qty;
+      return oReturnItem;
     });
   }
 
   addGuest(guestName, oReturnId, oReturnPrice, guestPicture = null): firebase.Promise<any> {
-    return this.userProfileRef.child('/oReturnList').child(oReturnId).child('guestList')
+    return this.userProfileRef.child('/returnList').child(oReturnId).child('guestList')
     .push({
       guestName: guestName
     })
     .then((newGuest) => {
-      this.userProfileRef.child('/oReturnList').child(oReturnId).transaction( oReturn => {
+      this.userProfileRef.child('/returnList').child(oReturnId).transaction( oReturn => {
         oReturn.revenue += oReturnPrice;
         return oReturn;
       });
@@ -84,7 +78,7 @@ export class ReturnProvider {
         firebase.storage().ref('/guestProfile/').child(newGuest.key)
         .child('profilePicture.png').putString(guestPicture, 'base64', {contentType: 'image/png'})
         .then((savedPicture) => {
-          this.userProfileRef.child('/oReturnList').child(oReturnId).child('guestList')
+          this.userProfileRef.child('/returnList').child(oReturnId).child('guestList')
           .child(newGuest.key).child('profilePicture').set(savedPicture.downloadURL);
         });        
       }
@@ -121,5 +115,14 @@ export class ReturnProvider {
     //   });
     // });
      return records;
+  }
+
+
+  submit(returnId) {
+    this.userProfileRef.child('/returnList').child(returnId)
+    .transaction( oreturn => { 
+      oreturn.submitted= true
+      return oreturn;
+    });
   }
 }

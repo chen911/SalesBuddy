@@ -150,4 +150,8 @@ export class ReturnDetailPage {
     });
     alert.present();
   }
+
+  goToSubmit() {
+     this.returnProvider.submit(this.currentReturn.id);
+  }
 }

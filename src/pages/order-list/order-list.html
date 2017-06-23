@@ -4,11 +4,6 @@
       <ion-icon item-left name="list-box"></ion-icon>
       &nbsp;Orders List
       </ion-title>
-      <ion-buttons end>
-      <button ion-button round outline Secondary (click)="goToHome()" >
-        HOME
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -18,7 +13,7 @@
     <ion-item *ngFor="let order of orderList" (click)="goToOrderDetail(order.id)">
       <h2>
         <ion-icon item-left name="book"></ion-icon>
-        <span>{{ order?.orderNo }} - {{ order?.customer }}</span>
+        <span>{{ order?.orderNo }} {{ order?.customer }}</span>
         <span item-right>{{ order?.orderDate | date : "dd MMM yyyy" }}</span>
       </h2>
       <p>Request Date: <strong>{{ order?.requestDate | date : "dd MMM yyyy" }}</strong></p>

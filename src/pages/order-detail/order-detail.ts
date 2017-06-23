@@ -150,4 +150,9 @@ export class OrderDetailPage {
     });
     alert.present();
   }
+
+
+  goToSubmit() {
+     this.orderProvider.submit(this.currentOrder.id);
+  }
 }

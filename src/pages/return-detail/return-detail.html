@@ -47,12 +47,12 @@
         <ion-col col-2>
           {{returnItem?.qty}}
         </ion-col>
-        <ion-col col-2>
-          <button ion-button  Secondary (click)="goToEditItem(returnItem)">
+        <ion-col col-2 *ngIf="!currentReturn?.submitted">
+          <button ion-button  Secondary (click)="goToEditItem(returnItem)" > 
             <ion-icon name="create"></ion-icon>
           </button>
         </ion-col>
-        <ion-col col-2>
+        <ion-col col-2 *ngIf="!currentReturn?.submitted">
           <button ion-button item-right color="danger" (click)="goToDeleteItem(returnItem.id)">
             <ion-icon name="trash"></ion-icon>
           </button>
@@ -72,12 +72,12 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="Add Item">
+  <ion-card class="Add Item" *ngIf="!currentReturn?.submitted">
     <ion-card-header>
       <ion-icon item-start name="create"></ion-icon>
       Add new item to return
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content >
       <form [formGroup]="returnItemForm" (submit)="addItem()" novalidate>
         <ion-item>
           <ion-label stacked>Item</ion-label>
@@ -97,4 +97,16 @@
       </form>
     </ion-card-content>
   </ion-card>
-<ion-content>
+
+  <ion-card class="Submit Order">
+    <ion-card-header *ngIf="currentReturn?.submitted" >
+      <p>Return details has been successfully submitted.</p>
+    </ion-card-header>
+    <ion-card-content *ngIf="!currentReturn?.submitted" >
+      <button ion-button block color="secondary" (click)="goToSubmit()">
+        Submit Your Sales Order
+      </button>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

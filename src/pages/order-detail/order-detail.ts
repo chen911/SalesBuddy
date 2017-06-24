@@ -22,8 +22,9 @@ export class OrderDetailPage {
   public itemList: Array<any>;
   private orderItemForm: FormGroup;
   public newOrder:boolean;
-  public item: string = '';		
-  public qty: number = null;
+  // public item: string = '';		
+  // public qty: number = null;
+  public orderNumber  : number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderProvider: OrderProvider, public cameraPlugin: Camera,
@@ -154,5 +155,9 @@ export class OrderDetailPage {
 
   goToSubmit() {
      this.orderProvider.submit(this.currentOrder.id);
+  }
+
+  increaseNumber(){
+    this.orderNumber = this.orderProvider.getNextOrderNumber();
   }
 }

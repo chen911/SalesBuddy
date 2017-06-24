@@ -2,11 +2,11 @@
   <ion-navbar>
     <ion-title>
       <ion-icon item-left name="paper"></ion-icon>
-      &nbsp;{{currentReturn?.returnNo}} Return Details
+      &nbsp;&nbsp;{{("00000"+currentReturn?.returnNo).slice(-6)}} - Return Details
     </ion-title>
     <ion-buttons end>
       <button ion-button round outline Secondary (click)="goToSave()" 
-              *ngIf="this.newReturn==true">
+              *ngIf="this.newReturn==true" class="save-button">
         SAVE
       </button>
     </ion-buttons>
@@ -29,8 +29,9 @@
     </ion-card-header>
     <ion-card-content>
       <p>Return Date: <strong item-right>{{ currentReturn?.returnDate | date :  "dd MMM yyyy" }} </strong></p>
-      <p>Original Order Number: <strong item-right>{{ currentReturn?.originaOrderNumber }}</strong></p>
-      <p>Original Order Date: <strong item-right>{{ currentReturn?.originaOrderDate | date :  "dd MMM yyyy" }}</strong></p>
+      <p>Original Order Number: <strong item-right>{{ currentReturn?.originalOrderNumber }}</strong></p>
+      <p>Original Order Date: <strong item-right>{{ currentReturn?.originalOrderDate | date :  "dd MMM yyyy" }}</strong></p>
+      <p *ngIf="currentReturn?.notes">Notes: <strong item-right>{{ currentReturn?.notes }}</strong></p>
     </ion-card-content>
   </ion-card>
 
@@ -99,7 +100,7 @@
   </ion-card>
 
   <ion-card class="Submit Order">
-    <ion-card-header *ngIf="currentReturn?.submitted" >
+    <ion-card-header *ngIf="currentReturn?.submitted" class="sumbit-note">
       <p>Return details has been successfully submitted.</p>
     </ion-card-header>
     <ion-card-content *ngIf="!currentReturn?.submitted" >

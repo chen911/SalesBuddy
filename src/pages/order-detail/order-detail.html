@@ -2,11 +2,11 @@
   <ion-navbar>
     <ion-title>
       <ion-icon item-left name="book"></ion-icon>
-      &nbsp; {{currentOrder?.orderNo}} Order Details
+      &nbsp; &nbsp; {{("00000"+currentOrder?.orderNo).slice(-6)}}  - Order Details
     </ion-title>
     <ion-buttons end>
       <button ion-button round outline Secondary (click)="goToSave()" 
-              *ngIf="this.newOrder==true">
+              *ngIf="this.newOrder==true" class="save-button">
         SAVE
       </button>
     </ion-buttons>
@@ -14,14 +14,7 @@
 </ion-header>
 
 <ion-content>
-  <!--<ion-row padding>
-    <ion-col col-8>
-      Current Order Revenue
-    </ion-col>
-    <ion-col col-4>
-      {{currentOrder?.orderDate}}
-    </ion-col>
-  </ion-row>-->
+
   <ion-card>
     <ion-card-header>
       <ion-icon item-left name="contact"></ion-icon>
@@ -30,6 +23,7 @@
     <ion-card-content>
       <p>Order Date: <strong item-right>{{ currentOrder?.orderDate | date :  "dd MMM yyyy" }} </strong></p>
       <p>Request Date: <strong item-right>{{ currentOrder?.requestDate | date :  "dd MMM yyyy" }}</strong></p>
+      <p *ngIf="currentOrder?.notes">Notes: <strong item-right>{{ currentOrder?.notes }}</strong></p>
     </ion-card-content>
   </ion-card>
 
@@ -87,7 +81,7 @@
   </ion-card>
 
   <ion-card class="Submit Order">
-    <ion-card-header *ngIf="currentOrder?.submitted" >
+    <ion-card-header *ngIf="currentOrder?.submitted" class="sumbit-note">
       <p>Sales order has been successfully submitted.</p>
     </ion-card-header>
     <ion-card-content *ngIf="!currentOrder?.submitted" >

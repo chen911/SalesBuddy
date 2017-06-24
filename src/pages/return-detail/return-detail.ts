@@ -64,7 +64,7 @@ export class ReturnDetailPage {
         if (returnSnapshot.val().customer) {
           this.currentCustomer = this.customerProvider.getCustomerDetail(returnSnapshot.val().customer);
         }
-
+        
         //To get return items list
         this.returnProvider.getReturnItemList(returnSnapshot.key).on('value', snapshot => {
           this.returnItemList = [];

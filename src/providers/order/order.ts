@@ -30,7 +30,7 @@ export class OrderProvider {
       requestDate: requestDate,
       notes: notes,
       customer: customer,
-      orderNo: '',
+      orderNo: this.getNextOrderNumber(),
       createdDate: new Date().toISOString()
     });
   }
@@ -84,35 +84,30 @@ export class OrderProvider {
   }
 
   getNextOrderNumber(): number{
-  var records;
+    var orderNumber  : number = 1;
+    var idreg;
     
-  firebase.database().ref('APP-ORDER-NO')
-  .once('value')
-  .then(snapshot => {
-   records = snapshot.val() + 1;
-    console.log('current records: ', records);
-    // return records;
-    snapshot.update(records);
-  })
-  .catch(error => console.log(error));
+    this.userProfileRef.child('/idreg').on("value", function(snapshot) {
+      idreg = snapshot.val();
+    });
 
-    // var orderno;
-    // var orderNoRef = firebase.database().ref('/APP-ORDER-NO');
-    // orderNoRef.on('value', function(snapshot) {
-    //   orderno = snapshot.val() + 1;
-    //   firebase.database().ref('/APP-ORDER-NO').push().setValue(orderno);
-    // });
+    if(idreg) {
+      orderNumber = idreg.APP_ORDER_NO + 1;
 
-    // var order = 0;
-    // firebase.database().ref('/APP-ORDER-NO')
-    // .push({ })
-    // .then((newOrder) => {
-    //   firebase.database().ref('/APP-ORDER-NO').transaction( orderNO => {
-    //     orderNO = orderNO + 1;
-    //     order = orderNO;
-    //   });
-    // });
-     return records;
+      //update ID value
+      this.userProfileRef.child('/idreg').transaction( idregd => { 
+        idregd.APP_ORDER_NO = orderNumber;
+        return idregd;
+      });
+    } else {
+      this.userProfileRef.child('/idreg').set({
+      // this.userProfileRef.child('/idreg').push({
+        APP_ORDER_NO: 1,
+        APP_RETURN_NO: 1
+      });
+    }
+
+    return orderNumber;
   }
 
   submit(orderId) {

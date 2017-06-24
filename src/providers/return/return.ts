@@ -34,6 +34,7 @@ export class ReturnProvider {
       customer: customer,
       originalOrderNumber: originalOrderNumber,
       originalOrderDate: originalOrderDate,
+      returnNo: this.getNextReturnNumber(),
       notes: notes,
     });
   }
@@ -86,37 +87,31 @@ export class ReturnProvider {
   }
 
   getNextReturnNumber(): number{
-  var records;
+    var returnNumber  : number = 1;
+    var idreg;
     
-  firebase.database().ref('APP-ORDER-NO')
-  .once('value')
-  .then(snapshot => {
-   records = snapshot.val() + 1;
-    console.log('current records: ', records);
-    // return records;
-    snapshot.update(records);
-  })
-  .catch(error => console.log(error));
+    this.userProfileRef.child('/idreg').on("value", function(snapshot) {
+      idreg = snapshot.val();
+    });
 
-    // var oReturnno;
-    // var oReturnNoRef = firebase.database().ref('/APP-ORDER-NO');
-    // oReturnNoRef.on('value', function(snapshot) {
-    //   oReturnno = snapshot.val() + 1;
-    //   firebase.database().ref('/APP-ORDER-NO').push().setValue(oReturnno);
-    // });
+    if(idreg) {
+      returnNumber = idreg.APP_RETURN_NO + 1;
 
-    // var oReturn = 0;
-    // firebase.database().ref('/APP-ORDER-NO')
-    // .push({ })
-    // .then((newReturn) => {
-    //   firebase.database().ref('/APP-ORDER-NO').transaction( oReturnNO => {
-    //     oReturnNO = oReturnNO + 1;
-    //     oReturn = oReturnNO;
-    //   });
-    // });
-     return records;
+      //update ID value
+      this.userProfileRef.child('/idreg').transaction( idregd => { 
+        idregd.APP_RETURN_NO = returnNumber;
+        return idregd;
+      });
+    } else {
+      this.userProfileRef.child('/idreg').set({
+      // this.userProfileRef.child('/idreg').push({
+        APP_ORDER_NO: 1,
+        APP_RETURN_NO: 1
+      });
+    }
+
+    return returnNumber;
   }
-
 
   submit(returnId) {
     this.userProfileRef.child('/returnList').child(returnId)

@@ -13,7 +13,7 @@
     <ion-item *ngFor="let return of returnList" (click)="goToReturnDetail(return.id)">
       <h2>
         <ion-icon item-left name="paper"></ion-icon>
-        <span item-left>{{ return?.returnNo }} - {{ return?.customer }}</span>
+        <span item-left>{{ ("00000"+return?.returnNo).slice(-6) }} - {{ return?.customer }}</span>
       </h2>
       <p>Return Date: <strong>{{ return?.returnDate | date : "dd MMM yyyy" }}</strong></p>
       <p *ngIf="return.notes">Notes: <strong>{{return?.notes}}</strong></p>
